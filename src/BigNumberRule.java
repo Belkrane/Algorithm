@@ -29,7 +29,7 @@ public class BigNumberRule {
         int kCounter = 0;
         int result = 0;
 
-        for(int i = 0; i < m; i++){
+        /*for(int i = 0; i < m; i++){
             if(kCounter < k){
                 kCounter++;
                 result += firstValue;
@@ -37,7 +37,10 @@ public class BigNumberRule {
                 result += secondValue;
                 kCounter = 0;
             }
-        }
+        }*/
+
+        //Better way(Mathematical way)//
+        result = (k * firstValue + secondValue) * (m / (k + 1)) + firstValue * (m % (k + 1));
 
         System.out.println("result = " + result);
     }
