@@ -4,6 +4,10 @@ public class GameDevelop {
 
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
+        //방향
+        int[] dx = {0, 1, 0, -1};
+        int[] dy = {-1, 0, 1, 0};
+
         //맵 크기
         int sizeMapX = 0;
         int sizeMapY = 0;
@@ -53,33 +57,23 @@ public class GameDevelop {
             }
 
             //방향 + 전진 가능 체크
-            if(direction == 0 && y - 1 > 0 && gameMap[x][y - 1] == 0){
-                y = y - 1;
-                gameMap[x][y] = 2;
-                result++;
-            } else if(direction == 1 && x + 1 < sizeMapX && gameMap[x + 1][y] == 0){
-                x = x + 1;
-                gameMap[x][y] = 2;
-                result++;
-            } else if(direction == 2 && y + 1 < sizeMapY && gameMap[x][y + 1] == 0){
-                y = y + 1;
-                gameMap[x][y] = 2;
-                result++;
-            } else if(direction == 3 && x - 1 > 0 && gameMap[x - 1][y] == 0){
-                x = x - 1;
+            if(x + dx[direction] > 0 && x + dx[direction] < sizeMapX
+                    && y + dy[direction] > 0 && y + dy[direction] < sizeMapY
+                    && gameMap[x + dx[direction]][y + dy[direction]] == 0){
+
+                x = x + dx[direction];
+                y = y + dy[direction];
                 gameMap[x][y] = 2;
                 result++;
             } else if(x - 1 > 0 && y - 1 > 0 && x + 1 < sizeMapX && y + 1 < sizeMapY
                     && gameMap[x - 1][y] != 0 && gameMap[x + 1][y] != 0 && gameMap[x][y - 1] != 0 && gameMap[x][y + 1] != 0) {
                 //갈 곳 없는 경위 뒷칸 체크
-                if(backDirection == 0 && y - 1 > 0 && gameMap[x][y - 1] != 1){
-                    y = y - 1;
-                } else if(backDirection == 1 && x + 1 < sizeMapX && gameMap[x + 1][y] != 1){
-                    x = x + 1;
-                } else if(backDirection == 2 && y + 1 < sizeMapY && gameMap[x][y + 1] != 1){
-                    y = y + 1;
-                } else if(backDirection == 3 && x - 1 > 0 && gameMap[x - 1][y] != 1) {
-                    x = x - 1;
+                if(x + dx[backDirection] > 0 && x + dx[backDirection] < sizeMapX
+                        && y + dy[backDirection] > 0 && y + dy[backDirection] < sizeMapY
+                        && gameMap[x + dx[backDirection]][y + dy[backDirection]] != 1){
+
+                    x = x + dx[backDirection];
+                    y = y + dy[backDirection];
                 } else {
                     break;
                 }
