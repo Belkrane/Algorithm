@@ -24,22 +24,17 @@ public class BianarySearchUsingRecursion {
 
     public static void binarySearch(int[] array, int start, int end, int item){
         int pivot = (start + end) / 2;
-        
-        if(array[pivot] > item){
-            if(pivot - 1 > 0){
+
+        if(start > end){
+            System.out.println("Can not find item");
+        } else {
+            if(array[pivot] > item){
                 binarySearch(array, start, pivot - 1, item);
-            } else {
-                System.out.println("Can not find Item");
-            }
-        } else if(array[pivot] < item){
-            if(pivot + 1 < end){
+            } else if(array[pivot] < item){
                 binarySearch(array, pivot + 1, end, item);
             } else {
-                System.out.println("Can not find Item");
+                System.out.println("result = " + (int)(pivot + 1));
             }
-        } else {
-            System.out.println("result = " + pivot + 1);
         }
-
     }
 }
