@@ -10,18 +10,17 @@ public class FibonacciUsingMemory {
             array[i] = 0;
         }
 
-        System.out.println("fibonacciwithmemory(array, 99) = " + fibonacciwithmemory(array, 99));
+        System.out.println("fibonacciwithmemory(array, 99) = " + fibonacciwithmemory(array, 6));
     }
 
     public static long fibonacciwithmemory(long[] array, int n){
-
+        System.out.println("called f(" + n + ")");
         if(n == 1 || n == 2){
             return 1;
         } else if(array[n] != 0){
             return array[n];
         } else {
             array[n] = fibonacciwithmemory(array, (n - 1)) + fibonacciwithmemory(array, (n - 2));
-            System.out.println("n + \" \" + array[n] = " + n + " " + array[n]);
         }
         
         return array[n];
