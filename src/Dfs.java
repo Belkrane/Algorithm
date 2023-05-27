@@ -3,7 +3,6 @@ import java.util.Stack;
 
 public class Dfs {
     public static void main(String[] args) {
-
         LinkedList[] linkedList = new LinkedList[9];
         boolean[] isVisited = new boolean[9];
 
@@ -31,39 +30,20 @@ public class Dfs {
         linkedList[8].add(1);
         linkedList[8].add(7);
 
-        int currentNode = 1;
-        int nextNode = 0;
-        Stack stack = new Stack<>();
-
-        while(true){
-            if(!isVisited[currentNode]){
-                isVisited[currentNode] = true;
-                stack.push(currentNode);
-                System.out.println("currentNode = " + currentNode);
-            }
-
-            for(int i = 0; i < linkedList[currentNode].size(); i++){
-                nextNode = (int)linkedList[currentNode].get(i);
-                if(!isVisited[nextNode]){
-                    currentNode = nextNode;
-                    break;
-                }
-            }
-
-            if(currentNode != nextNode){
-                if(!stack.isEmpty()) {
-                    stack.pop();
-                } else {
-                    break;
-                }
-                if(!stack.isEmpty()) {
-                    nextNode = (int) stack.peek();
-                    currentNode = nextNode;
-                }
-            }
-        }
-
-
+        DepthFirstSearch(linkedList, isVisited, 1);
     }
 
+    public static void DepthFirstSearch(LinkedList[] linkedList, boolean[] isVisited, int currentNode){
+        if(!isVisited[currentNode]){
+            System.out.println("currentNode = " + currentNode);
+            isVisited[currentNode] = true;
+        }
+
+        for(int i = 0; i < linkedList[currentNode].size(); i++){
+            int nextNode = (int)linkedList[currentNode].get(i);
+            if(!isVisited[nextNode]){
+                DepthFirstSearch(linkedList, isVisited, nextNode);
+            }
+        }
+    }
 }
