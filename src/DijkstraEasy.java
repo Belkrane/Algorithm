@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 
 public class DijkstraEasy {
@@ -41,6 +43,17 @@ public class DijkstraEasy {
     public static int[] dijstra(int[][] map, int start){
         int[] result = new int[map.length];
         boolean[] isVisited = new boolean[map.length];
+        PriorityQueue<int[]> priorityQueue = new PriorityQueue<>(new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                // 만일 2차원 배열의 첫 번째 원소가 같다면, 2번째 원소를 기준으로 내림차순 정렬한다.
+                if(o1[0] == o2[0]) {
+                    return Integer.compare(o2[1], o1[1]);
+                }
+                // 2차원 배열의 첫 번째 원소를 기준으로 오름차순 정렬한다.
+                return Integer.compare(o1[0], o2[0]);
+            }
+        });
 
         for(int i = 0; i < map.length; i++){
             result[i] = INF;
@@ -48,23 +61,19 @@ public class DijkstraEasy {
 
         result[start] = 0;
         isVisited[start] = true;
+        priorityQueue.offer(new int[] {0, start});
 
-        for(int i = 1; i < map.length; i++){
-            int minValue = INF;
-            int now = start;
-
-            for(int j = 1; j < result.length; j++){
-                if(result[j] < minValue && !isVisited[j]){
-                    minValue = result[j];
-                    now = j;
-                }
-            }
-
+        while(!priorityQueue.isEmpty()){
+            int[] minValue = priorityQueue.poll();
+            int now = minValue[1];
             isVisited[now] = true;
 
             for(int j = 0; j < map.length; j++){
                 if(map[now][j] != -1){
                     result[j] = min(result[j], result[now] + map[now][j]);
+                    if(!isVisited[j]){
+                        priorityQueue.offer(new int[]{result[j], j});
+                    }
                 }
             }
         }
